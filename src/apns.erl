@@ -207,6 +207,8 @@ default_headers([], Headers) ->
   Headers;
 default_headers([Key | Keys], Headers) ->
   case application:get_env(apns, Key) of
+    undefined ->
+      default_headers(Keys, Headers);
     {ok, undefined} ->
       default_headers(Keys, Headers);
     {ok, Value} ->
